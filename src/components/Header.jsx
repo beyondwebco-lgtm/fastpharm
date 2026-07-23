@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import { ShoppingCart, User, MapPin, Search, Menu, X, Activity } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import SearchAutocomplete from './SearchAutocomplete';
+import AuthModal from './AuthModal';
+import PartnerForm from './PartnerForm';
 import './Header.css';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [activeModal, setActiveModal] = useState(null);
   const { cartCount, openCart, searchQuery, setSearchQuery, deliveryLocation, setIsLocationModalOpen } = useCart();
 
   return (
@@ -27,10 +30,10 @@ const Header = () => {
 
         <nav className="nav-links hidden-mobile">
           <Link to="/upload" className="nav-link badge badge-fast">Upload Prescription</Link>
-          <Link to="/partners" className="nav-link">Partners</Link>
-          <Link to="/login" className="nav-icon-link">
+          <button type="button" onClick={() => setActiveModal('partner')} className="nav-link btn-reset" style={{ display: 'flex', alignItems: 'center', height: '100%' }}>Partners</button>
+          <button type="button" onClick={() => setActiveModal('auth')} className="nav-icon-link btn-reset">
             <User size={24} />
-          </Link>
+          </button>
           <button onClick={openCart} className="nav-icon-link cart-link btn-reset">
             <ShoppingCart size={24} />
             {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
@@ -79,8 +82,26 @@ const Header = () => {
             <span>Location: {deliveryLocation}</span>
           </button>
           <Link to="/upload" className="mobile-nav-link">Upload Prescription</Link>
-          <Link to="/partners" className="mobile-nav-link">Partners</Link>
-          <Link to="/login" className="mobile-nav-link">Login / Register</Link>
+          <button 
+            type="button"
+            onClick={() => {
+              setActiveModal('partner');
+              setIsMenuOpen(false);
+            }} 
+            className="mobile-nav-link btn-reset-mobile"
+          >
+            Partners
+          </button>
+          <button 
+            type="button"
+            onClick={() => {
+              setActiveModal('auth');
+              setIsMenuOpen(false);
+            }} 
+            className="mobile-nav-link btn-reset-mobile"
+          >
+            Login / Register
+          </button>
           <button 
             onClick={() => {
               openCart();
@@ -92,6 +113,9 @@ const Header = () => {
           </button>
         </div>
       )}
+
+      {activeModal === 'auth' && <AuthModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'partner' && <PartnerForm onClose={() => setActiveModal(null)} />}
     </header>
   );
 };
