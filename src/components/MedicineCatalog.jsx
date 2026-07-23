@@ -393,7 +393,7 @@ const MedicineCatalog = () => {
                             onClick={() => addToCart(product)}
                           >
                             <Plus size={16} /> 
-                            {isLowStock ? 'Add Urgent' : 'Add 15m'}
+                            Add
                           </button>
                         )}
                       </div>
