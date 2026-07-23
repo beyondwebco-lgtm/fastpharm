@@ -217,7 +217,7 @@ const STOCK_FILTERS = [
 const MedicineCatalog = () => {
   const [activeCategory, setActiveCategory] = useState('All Medicines');
   const [activeStockFilter, setActiveStockFilter] = useState(null);
-  const { addToCart, searchQuery } = useCart();
+  const { addToCart, searchQuery, cartItems, updateQuantity } = useCart();
 
   const getFilteredProducts = () => {
     let filtered = MOCK_PRODUCTS;
@@ -343,6 +343,9 @@ const MedicineCatalog = () => {
                 const isLowStock = product.stockStatus === 'Low Stock';
                 const isRx = product.type === 'Rx Required';
 
+                const cartItem = cartItems.find((item) => item.id === product.id);
+                const quantity = cartItem?.quantity ?? 0;
+
                 return (
                   <div key={product.id} className={`product-card ${isOutOfStock ? 'out-of-stock-card' : ''}`}>
                     <div className="product-badges-top">
@@ -387,7 +390,7 @@ const MedicineCatalog = () => {
                           >
                             <Bell size={16} /> Notify Restock
                           </button>
-                        ) : (
+                        ) : quantity === 0 ? (
                           <button 
                             className={`btn-action ${isLowStock ? 'urgent-btn' : 'add-btn'}`}
                             onClick={() => addToCart(product)}
@@ -395,6 +398,29 @@ const MedicineCatalog = () => {
                             <Plus size={16} /> 
                             Add
                           </button>
+                        ) : (
+                          <div
+                            className="product-quantity-control"
+                            aria-label={`Quantity controls for ${product.name}`}
+                          >
+                            <button
+                              type="button"
+                              className="qty-btn"
+                              onClick={() => updateQuantity(product.id, quantity - 1)}
+                              aria-label={`Decrease ${product.name} quantity`}
+                            >
+                              −
+                            </button>
+                            <span className="qty-value" aria-live="polite">{quantity}</span>
+                            <button
+                              type="button"
+                              className="qty-btn"
+                              onClick={() => updateQuantity(product.id, quantity + 1)}
+                              aria-label={`Increase ${product.name} quantity`}
+                            >
+                              +
+                            </button>
+                          </div>
                         )}
                       </div>
                     </div>

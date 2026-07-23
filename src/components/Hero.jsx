@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Clock, ShieldCheck, Zap } from 'lucide-react';
 import './Hero.css';
 
 const Hero = () => {
   const [isCapsuleOpen, setIsCapsuleOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <section className="hero">
@@ -19,7 +21,11 @@ const Hero = () => {
             Experience the future of healthcare. Get genuine medicines and health products delivered to your doorstep faster than ever before.
           </p>
           <div className="hero-actions animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            <button className="btn btn-primary">
+            <button 
+              type="button" 
+              className="btn btn-primary"
+              onClick={() => navigate('/products')}
+            >
               Order Now
             </button>
             <button className="btn btn-secondary">

@@ -6,7 +6,7 @@ import { CartProvider } from './context/CartContext';
 import CartDrawer from './components/CartDrawer';
 import Toast from './components/Toast';
 import LocationModal from './components/LocationModal';
-
+import Products from './pages/Products';
 function App() {
   return (
     <CartProvider>
@@ -19,6 +19,7 @@ function App() {
           <main className="flex-1">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/products" element={<Products />} />
             </Routes>
           </main>
           <CartDrawer />
