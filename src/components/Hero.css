@@ -145,12 +145,11 @@
 
 .fastpharm-capsule-scene {
   position: relative;
+  width: clamp(220px, 30vw, 320px);
+  height: clamp(90px, 12vw, 130px);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 380px;
-  height: 120px;
   animation: fastpharm-float 4s ease-in-out infinite;
 }
 
@@ -178,10 +177,13 @@
 /* Large white circular central shape */
 .capsule-center {
   position: absolute;
-  width: clamp(54px, 13vw, 84px);
-  height: clamp(54px, 13vw, 84px);
-  background: #ffffff;
+  left: 50%;
+  top: 50%;
+  width: clamp(90px, 12vw, 130px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
   border-radius: 50%;
+  background: #ffffff;
   z-index: 1;
   box-shadow: 0 0 35px rgba(255, 255, 255, 0.9), 0 0 15px rgba(255, 255, 255, 0.6);
   pointer-events: none;
@@ -189,8 +191,10 @@
 
 /* Base capsule half styles */
 .capsule-half {
-  height: clamp(44px, 11vw, 70px);
-  width: clamp(100px, 24vw, 150px);
+  position: absolute;
+  top: 50%;
+  width: 50%;
+  height: clamp(70px, 9vw, 100px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -199,6 +203,7 @@
   letter-spacing: 0.05em;
   z-index: 2;
   box-sizing: border-box;
+  transform-origin: center;
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
   will-change: transform;
 }
@@ -207,42 +212,42 @@
 .capsule-left {
   background-color: var(--neon-green);
   color: var(--bg-darker);
+  right: calc(50% - 3px);
   border-radius: 999px 0 0 999px;
   clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
-  margin-right: -15px; /* slight overlap with center circle */
   padding-right: clamp(10px, 2.5vw, 24px);
   filter: drop-shadow(0 0 12px rgba(0, 242, 96, 0.45));
-  transform: rotate(-10deg);
+  transform: translateY(-50%);
 }
 
 /* Right pink half */
 .capsule-right {
   background-color: var(--neon-pink);
   color: #ffffff;
+  left: calc(50% - 3px);
   border-radius: 0 999px 999px 0;
   clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%);
-  margin-left: -15px; /* slight overlap with center circle */
   padding-left: clamp(10px, 2.5vw, 24px);
   filter: drop-shadow(0 0 12px rgba(255, 0, 127, 0.45));
-  transform: rotate(10deg);
+  transform: translateY(-50%);
 }
 
 /* Open transformations */
 @media (hover: hover) and (pointer: fine) {
   .capsule-animation-container:hover .capsule-left {
-    transform: translateX(clamp(-42px, -7vw, -30px)) rotate(-15deg);
+    transform: translateY(-50%) translateX(-48px) rotate(-8deg);
   }
   .capsule-animation-container:hover .capsule-right {
-    transform: translateX(clamp(30px, 7vw, 42px)) rotate(15deg);
+    transform: translateY(-50%) translateX(48px) rotate(8deg);
   }
 }
 
 .capsule-animation-container.is-open .capsule-left {
-  transform: translateX(clamp(-42px, -7vw, -30px)) rotate(-15deg);
+  transform: translateY(-50%) translateX(-48px) rotate(-8deg);
 }
 
 .capsule-animation-container.is-open .capsule-right {
-  transform: translateX(clamp(30px, 7vw, 42px)) rotate(15deg);
+  transform: translateY(-50%) translateX(48px) rotate(8deg);
 }
 
 @media (prefers-reduced-motion: reduce) {
