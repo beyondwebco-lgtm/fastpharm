@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, User, MapPin, Search, Menu, X, Activity } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import SearchAutocomplete from './SearchAutocomplete';
 import './Header.css';
 
 const Header = () => {
@@ -22,27 +23,7 @@ const Header = () => {
           <span className="location-text">Deliver to <span className="location-highlight">{deliveryLocation}</span></span>
         </div>
 
-        <div className="search-bar hidden-mobile">
-          <input 
-            type="text" 
-            placeholder="Search medicines, composition, generics..." 
-            className="search-input" 
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          {searchQuery && (
-            <button 
-              onClick={() => setSearchQuery('')} 
-              className="clear-search-btn"
-              style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', marginRight: '0.5rem', display: 'flex', alignItems: 'center' }}
-            >
-              <X size={16} />
-            </button>
-          )}
-          <button className="search-btn">
-            <Search size={18} />
-          </button>
-        </div>
+        <SearchAutocomplete isMobile={false} />
 
         <nav className="nav-links hidden-mobile">
           <Link to="/upload" className="nav-link badge badge-fast">Upload Prescription</Link>
@@ -80,25 +61,7 @@ const Header = () => {
       
       {isMobileSearchOpen && (
         <div className="mobile-search-panel hidden-desktop">
-          <div className="search-bar-mobile" style={{ display: 'flex', alignItems: 'center' }}>
-            <input 
-              type="text" 
-              placeholder="Search medicines, composition, generics..." 
-              className="search-input" 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              autoFocus
-            />
-            {searchQuery && (
-              <button 
-                onClick={() => setSearchQuery('')} 
-                className="clear-search-btn"
-                style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-              >
-                <X size={16} />
-              </button>
-            )}
-          </div>
+          <SearchAutocomplete isMobile={true} />
         </div>
       )}
       
