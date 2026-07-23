@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import { CartProvider } from './context/CartContext';
 import CartDrawer from './components/CartDrawer';
 import Toast from './components/Toast';
+import LocationModal from './components/LocationModal';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           </main>
           <CartDrawer />
           <Toast />
+          <LocationModal />
         </div>
       </Router>
     </CartProvider>

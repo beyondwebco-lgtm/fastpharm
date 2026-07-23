@@ -9,6 +9,8 @@ export const CartProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [deliveryLocation, setDeliveryLocation] = useState('Hyderabad, 500081');
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
 
   const addToCart = (product) => {
     setCartItems(prev => {
@@ -53,7 +55,8 @@ export const CartProvider = ({ children }) => {
     <CartContext.Provider value={{ 
       cartItems, addToCart, removeFromCart, updateQuantity, clearCart,
       isCartOpen, toggleCart, openCart, closeCart, cartTotal, cartCount,
-      toastMessage, searchQuery, setSearchQuery
+      toastMessage, searchQuery, setSearchQuery,
+      deliveryLocation, setDeliveryLocation, isLocationModalOpen, setIsLocationModalOpen
     }}>
       {children}
     </CartContext.Provider>

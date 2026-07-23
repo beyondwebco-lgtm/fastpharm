@@ -6,7 +6,7 @@ import './Header.css';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { cartCount, openCart, searchQuery, setSearchQuery } = useCart();
+  const { cartCount, openCart, searchQuery, setSearchQuery, deliveryLocation, setIsLocationModalOpen } = useCart();
 
   return (
     <header className="header">
@@ -16,9 +16,9 @@ const Header = () => {
           <span className="logo-text">Fast<span className="text-gradient">Pharm</span></span>
         </Link>
         
-        <div className="location-selector hidden-mobile">
+        <div className="location-selector hidden-mobile" onClick={() => setIsLocationModalOpen(true)} style={{ cursor: 'pointer' }}>
           <MapPin size={18} className="text-muted" />
-          <span className="location-text">Deliver to <span className="location-highlight">Hyderabad, 500081</span></span>
+          <span className="location-text">Deliver to <span className="location-highlight">{deliveryLocation}</span></span>
         </div>
 
         <div className="search-bar hidden-mobile">
@@ -80,6 +80,17 @@ const Header = () => {
               </button>
             )}
           </div>
+          <button 
+            onClick={() => {
+              setIsLocationModalOpen(true);
+              setIsMenuOpen(false);
+            }} 
+            className="mobile-nav-link btn-reset-mobile"
+            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+          >
+            <MapPin size={16} className="text-cyan" />
+            <span>Location: {deliveryLocation}</span>
+          </button>
           <Link to="/upload" className="mobile-nav-link">Upload Prescription</Link>
           <Link to="/partners" className="mobile-nav-link">Partners</Link>
           <Link to="/login" className="mobile-nav-link">Login / Register</Link>
