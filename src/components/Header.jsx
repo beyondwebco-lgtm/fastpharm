@@ -6,6 +6,7 @@ import './Header.css';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const { cartCount, openCart, searchQuery, setSearchQuery, deliveryLocation, setIsLocationModalOpen } = useCart();
 
   return (
@@ -56,25 +57,37 @@ const Header = () => {
         </nav>
 
         <div className="mobile-header-actions">
-          <button onClick={openCart} className="nav-icon-link cart-link btn-reset mobile-cart-icon-btn" aria-label="Open Cart">
+          <button
+            type="button"
+            className="mobile-search-trigger"
+            onClick={() => setIsMobileSearchOpen((current) => !current)}
+            aria-label={isMobileSearchOpen ? "Close search" : "Search medicines"}
+            aria-expanded={isMobileSearchOpen}
+          >
+            <Search size={22} />
+          </button>
+          
+          <button onClick={openCart} className="nav-icon-link cart-link btn-reset mobile-cart-icon-btn cart-trigger" aria-label="Open Cart">
             <ShoppingCart size={22} />
             {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
           </button>
+          
           <button className="mobile-menu-btn" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle Menu">
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
       
-      {isMenuOpen && (
-        <div className="mobile-menu">
+      {isMobileSearchOpen && (
+        <div className="mobile-search-panel hidden-desktop">
           <div className="search-bar-mobile" style={{ display: 'flex', alignItems: 'center' }}>
             <input 
               type="text" 
-              placeholder="Search..." 
+              placeholder="Search medicines, composition, generics..." 
               className="search-input" 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              autoFocus
             />
             {searchQuery && (
               <button 
@@ -86,6 +99,11 @@ const Header = () => {
               </button>
             )}
           </div>
+        </div>
+      )}
+      
+      {isMenuOpen && (
+        <div className="mobile-menu">
           <button 
             onClick={() => {
               setIsLocationModalOpen(true);
