@@ -1,11 +1,35 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 const CartContext = createContext();
 
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    if (typeof window === "undefined") return [];
+
+    try {
+      const storedCart = window.localStorage.getItem("fastpharm-cart");
+      const parsedCart = storedCart ? JSON.parse(storedCart) : [];
+
+      return Array.isArray(parsedCart) ? parsedCart : [];
+    } catch (error) {
+      console.error("Unable to load saved cart:", error);
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(
+        "fastpharm-cart",
+        JSON.stringify(cartItems)
+      );
+    } catch (error) {
+      console.error("Unable to save cart:", error);
+    }
+  }, [cartItems]);
+
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
