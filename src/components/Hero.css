@@ -179,7 +179,7 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: clamp(90px, 12vw, 130px);
+  width: clamp(52px, 7vw, 78px);
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   border-radius: 50%;
@@ -212,7 +212,7 @@
 .capsule-left {
   background-color: var(--neon-green);
   color: var(--bg-darker);
-  right: calc(50% - 3px);
+  right: calc(50% - 7px);
   border-radius: 999px 0 0 999px;
   clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
   padding-right: clamp(10px, 2.5vw, 24px);
@@ -224,7 +224,7 @@
 .capsule-right {
   background-color: var(--neon-pink);
   color: #ffffff;
-  left: calc(50% - 3px);
+  left: calc(50% - 7px);
   border-radius: 0 999px 999px 0;
   clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%);
   padding-left: clamp(10px, 2.5vw, 24px);
@@ -235,19 +235,19 @@
 /* Open transformations */
 @media (hover: hover) and (pointer: fine) {
   .capsule-animation-container:hover .capsule-left {
-    transform: translateY(-50%) translateX(-48px) rotate(-8deg);
+    transform: translateY(-50%) translateX(-34px) rotate(-6deg);
   }
   .capsule-animation-container:hover .capsule-right {
-    transform: translateY(-50%) translateX(48px) rotate(8deg);
+    transform: translateY(-50%) translateX(34px) rotate(6deg);
   }
 }
 
 .capsule-animation-container.is-open .capsule-left {
-  transform: translateY(-50%) translateX(-48px) rotate(-8deg);
+  transform: translateY(-50%) translateX(-34px) rotate(-6deg);
 }
 
 .capsule-animation-container.is-open .capsule-right {
-  transform: translateY(-50%) translateX(48px) rotate(8deg);
+  transform: translateY(-50%) translateX(34px) rotate(6deg);
 }
 
 @media (prefers-reduced-motion: reduce) {
