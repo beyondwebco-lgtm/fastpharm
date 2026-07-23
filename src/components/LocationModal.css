@@ -15,14 +15,17 @@
 
 .location-modal-card {
   width: 480px;
-  max-width: 90%;
+  max-width: calc(100% - 2rem);
+  max-height: calc(90vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
   background: var(--bg-dark);
   border: 1px solid var(--border-color);
   border-radius: 1rem;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-  overflow: hidden;
   animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 
 @keyframes scaleUp {
   from { transform: scale(0.95); opacity: 0; }
@@ -63,6 +66,8 @@
 
 .location-modal-body {
   padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
 }
 
 .detect-btn {
@@ -217,3 +222,28 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+@media (max-width: 480px) {
+  .location-modal-card {
+    max-width: calc(100% - 1.5rem);
+    max-height: 85vh;
+  }
+  .location-modal-body {
+    padding: 1rem;
+  }
+  .input-group {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .save-loc-btn {
+    width: 100%;
+  }
+  .location-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .loc-grid-item {
+    padding: 0.75rem;
+  }
+}
+

@@ -47,20 +47,38 @@
 
 @media (max-width: 480px) {
   .toast-container {
-    bottom: 5rem; /* Make room for mobile nav if any */
-    right: 50%;
-    transform: translateX(50%);
-    width: max-content;
+    bottom: 5rem;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: calc(100% - 2rem);
+    max-width: 380px;
+    display: flex;
+    justify-content: center;
+    animation: slideUpFadeMobile 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
-  
-  @keyframes slideUpFade {
-    from {
-      transform: translate(50%, 20px);
-      opacity: 0;
-    }
-    to {
-      transform: translate(50%, 0);
-      opacity: 1;
-    }
+
+  .toast-content {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .toast-text {
+    white-space: normal;
+    word-break: break-word;
   }
 }
+
+@keyframes slideUpFadeMobile {
+  from {
+    transform: translate(-50%, 20px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+

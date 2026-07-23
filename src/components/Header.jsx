@@ -55,9 +55,15 @@ const Header = () => {
           </button>
         </nav>
 
-        <button className="mobile-menu-btn" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="mobile-header-actions">
+          <button onClick={openCart} className="nav-icon-link cart-link btn-reset mobile-cart-icon-btn" aria-label="Open Cart">
+            <ShoppingCart size={22} />
+            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+          </button>
+          <button className="mobile-menu-btn" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle Menu">
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
       
       {isMenuOpen && (

@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { X, Plus, Minus, Trash2, ShoppingBag, Clock, ShieldAlert } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import './CartDrawer.css';
 
 const CartDrawer = () => {
   const { cartItems, isCartOpen, closeCart, updateQuantity, removeFromCart, cartTotal } = useCart();
+
+  useEffect(() => {
+    if (isCartOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isCartOpen]);
 
   if (!isCartOpen) return null;
 

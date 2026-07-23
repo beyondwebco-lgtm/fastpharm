@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, MapPin, Navigation, Check } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import './LocationModal.css';
@@ -16,6 +16,17 @@ const LocationModal = () => {
   const { isLocationModalOpen, setIsLocationModalOpen, deliveryLocation, setDeliveryLocation } = useCart();
   const [customLocation, setCustomLocation] = useState('');
   const [detecting, setDetecting] = useState(false);
+
+  useEffect(() => {
+    if (isLocationModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isLocationModalOpen]);
 
   if (!isLocationModalOpen) return null;
 
