@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Clock, ShieldCheck, Zap } from 'lucide-react';
 import './Hero.css';
 
 const Hero = () => {
+  const [isCapsuleOpen, setIsCapsuleOpen] = useState(false);
+
   return (
     <section className="hero">
       <div className="container hero-container">
@@ -48,7 +50,20 @@ const Hero = () => {
           <div className="glow-orb orb-1"></div>
           <div className="glow-orb orb-2"></div>
           <div className="glass-card">
-            <div className="capsule-animation-container">
+            <div 
+              className={`capsule-animation-container ${isCapsuleOpen ? 'is-open' : ''}`}
+              onClick={() => setIsCapsuleOpen((current) => !current)}
+              role="button"
+              tabIndex={0}
+              aria-label={isCapsuleOpen ? "Close FastPharm capsule" : "Open FastPharm capsule"}
+              aria-pressed={isCapsuleOpen}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  setIsCapsuleOpen((current) => !current);
+                }
+              }}
+            >
               <div className="fastpharm-capsule-scene">
                 <div className="capsule-center" aria-hidden="true"></div>
                 <div className="capsule-half capsule-left">
