@@ -49,10 +49,14 @@ const Hero = () => {
           <div className="glow-orb orb-2"></div>
           <div className="glass-card">
             <div className="capsule-animation-container">
-              <div className="fastpharm-capsule">
-                <span className="capsule-word capsule-word-fast">FAST</span>
-                <span className="capsule-break" aria-hidden="true"></span>
-                <span className="capsule-word capsule-word-pharm">PHARM</span>
+              <div className="fastpharm-capsule-scene">
+                <div className="capsule-center" aria-hidden="true"></div>
+                <div className="capsule-half capsule-left">
+                  <span>FAST</span>
+                </div>
+                <div className="capsule-half capsule-right">
+                  <span>PHARM</span>
+                </div>
               </div>
             </div>
           </div>
